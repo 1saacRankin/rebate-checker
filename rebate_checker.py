@@ -17,6 +17,8 @@ import time
 # ----------------------------
 URL = "https://www.goelectricotherrebates.ca/eligible-vehicles?category=Cargo%20E-bikes"
 
+
+# Previous notice:
 # NOTICE_TEXT = (
 #     "The Go Electric Rebates Program has recently received a significant volume of applications "
 #     "and is currently processing them as quickly as possible. As a result, the program is not "
@@ -31,15 +33,13 @@ NOTICE_TEXT = (
     "Please note: New applications cannot be added to the waitlist, and other vehicle categories are not eligible for this funding."
 )
 
-LOG_FILE = "/Users/isaacrankin/EbikeRebate/rebate_checker.log"
+LOG_FILE = "/Users/path to your directory/EbikeRebate/rebate_checker.log"
 GECKODRIVER_PATH = "/opt/homebrew/bin/geckodriver"
-SCREENSHOT_DIR = "/Users/isaacrankin/EbikeRebate/screenshots"
+SCREENSHOT_DIR = "/Users/path to your directory/EbikeRebate/screenshots"
 
 os.makedirs(SCREENSHOT_DIR, exist_ok=True)
 
-# ----------------------------
 # Helper Functions
-# ----------------------------
 def log(message: str):
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     with open(LOG_FILE, "a") as f:
@@ -60,9 +60,7 @@ def send_mac_notification(title: str, message: str):
 def normalize(text: str) -> str:
     return " ".join(text.split())
 
-# ----------------------------
-# Main Website Check
-# ----------------------------
+# Website Checker
 def check_website(retries=3, delay=5) -> bool:
     options = Options()
     options.headless = True
@@ -124,9 +122,7 @@ def check_website(retries=3, delay=5) -> bool:
     finally:
         driver.quit()
 
-# ----------------------------
-# Entry Point
-# ----------------------------
+# Use it
 if __name__ == "__main__":
     if check_website():
         send_mac_notification(
@@ -138,7 +134,4 @@ if __name__ == "__main__":
 
 
 
-
-# # To run: /Users/isaacrankin/EbikeRebate/run_rebate_checker.sh
-# # (scrape) isaacrankin@Isaacs-MacBook-Air-2 ~ % /Users/isaacrankin/EbikeRebate/run_rebate_checker.sh
 
